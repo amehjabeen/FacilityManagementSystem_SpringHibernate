@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="edu.luc.skhan.amehjabeen.model.maintenance">
+	<class name="Maintenance" table="maintenance">
+		<id name="maintenanceId" column="maintenanceid">
+			<generator class="increment" />
+		</id>
+		<property name="startTime" type="date" column="startTime" />
+		<property name="endTime" type="date" column="endTime" />
+		<many-to-one name="facility" class= "edu.luc.skhan.amehjabeen.model.facility.Facility" lazy="false" cascade="all" />
+	</class>
+
+	<class name="MaintenanceRequest" table="maintenancerequest">
+		<id name="requestId" column="requestid">
+			<generator class="increment" />
+		</id>
+		<property name="requestDate" type="date" column="requestdate" />
+		<property name="inspectionStatus" type="string" column="inspectionStatus" />
+		<many-to-one name="facility" class= "edu.luc.skhan.amehjabeen.model.facility.Facility" lazy="false" cascade="all" />
+	</class>
+	
+	<class name="Problem" table="problem">
+		<id name="problemId" column="problemid">
+			<generator class="increment" />
+		</id>
+		<property name="typeOfProblem" type="string" column="typeOfProblem" />
+		<property name="maintenanceRequestStatus" type="string" column="maintenanceRequestStatus" />
+		<many-to-one name="facility" class= "edu.luc.skhan.amehjabeen.model.facility.Facility" cascade="all" />
+	</class>
+	
+</hibernate-mapping>

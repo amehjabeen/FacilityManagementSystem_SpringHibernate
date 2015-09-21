@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="edu.luc.skhan.amehjabeen.model">
+
+	<!-- Implementing the table per class hierarchy -->
+	<class name="edu.luc.skhan.amehjabeen.model.classes.Person"
+		table="person">
+		<id name="personId" column="personid" />
+		<discriminator column="person_type" type="string" />
+		<subclass name="edu.luc.skhan.amehjabeen.model.classes.User"
+			discriminator-value="User" />
+		<subclass name="edu.luc.skhan.amehjabeen.model.classes.Manager"
+			discriminator-value="Manager" />
+	</class>
+
+</hibernate-mapping>

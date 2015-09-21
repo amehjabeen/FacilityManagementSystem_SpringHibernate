@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="edu.luc.skhan.amehjabeen.model.use">
+	<class name="Use" table="uselogs">
+		<id name="useId" column="useId">
+			<generator class="increment" />
+		</id>
+		<property name="startTime" type="date" column="startTime" />
+		<property name="endTime" type="date" column="endTime" />
+		<property name="isInUse" type="boolean" column="isInUse" />
+		<property name="isInUseDuringInterval" type="boolean"
+			column="isInUseDuringInterval" />
+		<many-to-one name="facility"
+			class="edu.luc.skhan.amehjabeen.model.facility.Facility" cascade="all" />
+	</class>
+
+	<class name="Inspections" table="inspections">
+		<id name="inspectionId" column="inspectionId">
+			<generator class="increment" />
+		</id>
+		<property name="inspectionDate" type="date" column="inspectiondate" />
+		<property name="problemStatus" type="string" column="problemStatus" />
+		<many-to-one name="facility"
+			class="edu.luc.skhan.amehjabeen.model.facility.Facility" lazy="false" cascade="all" />
+	</class>
+
+</hibernate-mapping>

@@ -1,0 +1,68 @@
+<?xml  version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
+                           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+                           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+                           http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+	<description>
+		Wiring the dependencies for Facility Management
+		Application.
+	</description>
+	<context:component-scan base-package="edu.luc.skhan.amehjabeen" />
+
+	<bean id="information" class="edu.luc.skhan.amehjabeen.model.facility.Information"
+		scope="prototype" />
+
+	<bean id="facility" class="edu.luc.skhan.amehjabeen.model.facility.Facility"
+		scope="prototype">
+		<property name="information" ref="information" />
+		<property name="id">
+			<value>0</value>
+		</property>
+	</bean>
+
+	<bean id="maintenance" class="edu.luc.skhan.amehjabeen.model.maintenance.Maintenance"
+		scope="prototype">
+		<property name="facility" ref="facility" />
+	</bean>
+
+	<bean id="maintenanceRequest"
+		class="edu.luc.skhan.amehjabeen.model.maintenance.MaintenanceRequest"
+		scope="prototype">
+		<property name="facility" ref="facility" />
+	</bean>
+
+	<bean id="problem" class="edu.luc.skhan.amehjabeen.model.maintenance.Problem"
+		scope="prototype">
+		<property name="facility" ref="facility" />
+		<property name="maintenanceRequestStatus">
+			<value>"MAINTENANCE_NOT_REQUESTED"</value>
+		</property>
+	</bean>
+
+	<bean id="inspection" class="edu.luc.skhan.amehjabeen.model.use.Inspections"
+		scope="prototype">
+		<property name="facility" ref="facility" />
+		<property name="problemStatus">
+			<value>"INSPECTION_PENDING"</value>
+		</property>
+	</bean>
+
+	<bean id="use" class="edu.luc.skhan.amehjabeen.model.use.Use"
+		scope="prototype">
+		<property name="facility" ref="facility" />
+	</bean>
+
+	<bean id="person" class="edu.luc.skhan.amehjabeen.model.classes.Person"
+		scope="prototype" />
+	<bean id="manager" class="edu.luc.skhan.amehjabeen.model.classes.Manager"
+		parent="person" scope="prototype" />
+	<bean id="user" class="edu.luc.skhan.amehjabeen.model.classes.User"
+		parent="person" scope="prototype" />
+
+</beans>
